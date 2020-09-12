@@ -6,5 +6,13 @@
   "scripts": {},
   "keywords": [],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "colors": "^1.4.0",
+    "glob": "^7.1.6",
+    "inquirer": "^7.3.3",
+    "ora": "^5.1.0",
+    "ts-node": "^9.0.0",
+    "tslint": "^6.1.3"
+  }
 }
