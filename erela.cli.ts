@@ -8,7 +8,7 @@ const listen = async () => {
   const q01: RawListQuestion = {
     type: 'rawlist',
     message: 'What do you want to generate?',
-    choices: ['Controller', 'Model', 'Ma'],
+    choices: ['Controller', 'Entity', 'Interface', 'service'],
     name: 'generate',
   }
   prompt([q01]).then((ans) => {
