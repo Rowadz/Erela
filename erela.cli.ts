@@ -1,5 +1,6 @@
 /* tslint:disable:no-console */
 import ora from 'ora'
+import { PlainObject } from 'types'
 import 'colors'
 import { prompt, RawListQuestion } from 'inquirer'
 
@@ -11,8 +12,10 @@ const listen = async () => {
     choices: ['Controller', 'Entity', 'Interface', 'service'],
     name: 'generate',
   }
-  prompt([q01]).then((ans) => {
-    console.log(ans)
+  prompt([q01]).then((answer: PlainObject) => {
+    Object.keys(answer).forEach((question: string) => {
+      console.log(`${question}? --> `, answer[question])
+    })
   })
 }
 
