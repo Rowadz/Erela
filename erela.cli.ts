@@ -1,3 +1,4 @@
+/* tslint:disable:no-console */
 import ora from 'ora'
 import 'colors'
 import { prompt, RawListQuestion } from 'inquirer'
