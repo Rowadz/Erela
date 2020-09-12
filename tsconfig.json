@@ -4,6 +4,7 @@
   "compilerOptions": {
     "preserveConstEnums": true,
     "baseUrl": ".",
+    "moduleResolution": "node",
     "experimentalDecorators": true,
     "paths": {
       "types": ["src/types"],
