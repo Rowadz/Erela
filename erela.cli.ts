@@ -30,36 +30,41 @@ enum choices {
 })()
 
 const pipeGeneration = async (choice: choices) => {
-  const controllers = 'src/controllers'
   switch (choice) {
     case choices.Controller:
-      // TODO:: THIS CHECK AND SETUP SHOULD BE A GENERIC ONE AND ALL USE IT !
-      const fullPath = `${__dirname}/${controllers}z`
-      log('Will generate a Controller'.blue)
-      const spinner = ora('Checking if a the src/controller exists ..'.white)
-      spinner.start()
-      const exits = await stat(fullPath)
-        .then(() => true)
-        .catch(() => false)
-      if (exits) {
-        spinner.succeed(`The ${controllers} directory already exists`)
-      } else {
-        spinner.fail(
-          `Can't find the ${controllers} directory, so I'll create it for you 🙂`
-        )
-        mkdir(fullPath)
-        spinner.succeed(`Created The ${controllers} directory`)
-      }
+      const controllers = 'src/controllers'
+      setup(controllers, choice)
       break
     case choices.Entity:
-      log('TODO generate a Entity'.yellow)
+      const entities = 'src/entities'
+      setup(entities, choice)
       break
     case choices.Service:
-      log('TODO generate a Service'.magenta)
+      const services = 'src/services'
+      setup(services, choice)
       break
 
     default:
       break
+  }
+}
+
+const setup = async (path: string, type: choices) => {
+  const fullPath = `${__dirname}/${path}`
+  log(`Will generate a ${type}`.blue)
+  const spinner = ora(`Checking if a the ${path} exists ..`.white)
+  spinner.start()
+  const exits = await stat(fullPath)
+    .then(() => true)
+    .catch(() => false)
+  if (exits) {
+    spinner.succeed(`The ${path} directory already exists`)
+  } else {
+    spinner.fail(
+      `Can't find the ${path} directory, so I'll create it for you 🙂`
+    )
+    mkdir(fullPath)
+    spinner.succeed(`Created The ${path} directory`)
   }
 }
 
