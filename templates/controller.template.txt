@@ -9,7 +9,7 @@ import {
 } from 'routing-controllers'
 import { DeepPartial } from 'utility-types'
 
-@JsonController('__NAME__')
+@JsonController('__ROUTE_NAME__')
 export class __NAME__Contoller {
   // you should link a service with this
   // contoller via the dependency injection

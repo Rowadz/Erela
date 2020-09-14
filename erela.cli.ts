@@ -78,7 +78,10 @@ const generateController = async (distPath: string) => {
   const buffer: Buffer = await readFileAsync(
     join(__dirname, `templates/controller.template.txt`)
   )
-  const newContent = buffer.toString().replace(/__NAME__/g, name)
+  const newContent = buffer
+    .toString()
+    .replace(/__NAME__/g, name)
+    .replace(/__ROUTE_NAME__/g, name.toLowerCase())
   writeFileAsync(
     join(__dirname, `${distPath}/${name}.controller.ts`),
     newContent
