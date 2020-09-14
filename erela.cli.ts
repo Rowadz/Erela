@@ -80,7 +80,7 @@ const generateController = async (distPath: string) => {
   )
   const newContent = buffer.toString().replace(/__NAME__/g, name)
   writeFileAsync(
-    join(__dirname, `${distPath}/${name.toUpperCase()}.controller.ts`),
+    join(__dirname, `${distPath}/${name}.controller.ts`),
     newContent
   )
 }
