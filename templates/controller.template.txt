@@ -1,0 +1,37 @@
+import {
+  Param,
+  Body,
+  Get,
+  Post,
+  Delete,
+  Patch,
+  JsonController,
+} from 'routing-controllers'
+import { DeepPartial } from 'utility-types'
+
+@JsonController('__NAME__')
+export class __NAME__Contoller {
+  // you should link a service with this
+  // contoller via the dependency injection
+  // system you have in elera
+  constructor() {}
+
+  // to get all data with pagination
+  @Get()
+  getAll() {}
+
+  @Get('/:id')
+  getOne() {}
+
+  // TODO:: replace any!
+  @Post()
+  async post(@Body() user: DeepPartial<any>) {}
+
+  // TODO:: replace any!
+  @Patch('/:id')
+  async patch(@Param('id') id: number, @Body() user: any) {}
+
+  // TODO:: replace any!
+  @Delete('/:id')
+  remove(@Param('id') id: number) {}
+}

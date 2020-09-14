@@ -1,11 +1,15 @@
 /* tslint:disable:no-console */
 import ora from 'ora'
 import { PlainObject } from 'types'
-import { promises as fsPromises } from 'fs'
+import { stat, mkdir, readFile, writeFile } from 'fs'
+import { promisify } from 'util'
 import 'colors'
-import { prompt, RawListQuestion } from 'inquirer'
-
-const { stat, mkdir } = fsPromises
+import { prompt, RawListQuestion, Question } from 'inquirer'
+import { join } from 'path'
+const statAsync = promisify(stat)
+const mkdirAsync = promisify(mkdir)
+const readFileAsync = promisify(readFile)
+const writeFileAsync = promisify(writeFile)
 
 const { log } = console
 
@@ -33,7 +37,8 @@ const pipeGeneration = async (choice: choices) => {
   switch (choice) {
     case choices.Controller:
       const controllers = 'src/controllers'
-      setup(controllers, choice)
+      await setup(controllers, choice)
+      generateController(controllers)
       break
     case choices.Entity:
       const entities = 'src/entities'
@@ -50,11 +55,11 @@ const pipeGeneration = async (choice: choices) => {
 }
 
 const setup = async (path: string, type: choices) => {
-  const fullPath = `${__dirname}/${path}`
+  const fullPath = join(`${__dirname}/${path}`)
   log(`Will generate a ${type}`.blue.bold)
   const spinner = ora(`Checking if a the ${path} exists ..`.white)
   spinner.start()
-  const exits = await stat(fullPath)
+  const exits = await statAsync(fullPath)
     .then(() => true)
     .catch(() => false)
   if (exits) {
@@ -63,9 +68,31 @@ const setup = async (path: string, type: choices) => {
     spinner.fail(
       `Can't find the ${path} directory, so I'll create it for you 🙂`
     )
-    mkdir(fullPath)
+    await mkdirAsync(fullPath)
     spinner.succeed(`Created The ${path} directory`)
   }
 }
 
-const generateController = async () => {}
+const generateController = async (distPath: string) => {
+  const name = await askAboutName(choices.Controller)
+  const buffer: Buffer = await readFileAsync(
+    join(__dirname, `templates/controller.template.txt`)
+  )
+  const newContent = buffer.toString().replace(/__NAME__/g, name)
+  writeFileAsync(
+    join(__dirname, `${distPath}/${name.toUpperCase()}.controller.ts`),
+    newContent
+  )
+}
+
+const askAboutName = async (choice: choices) => {
+  const q: Question = {
+    type: 'input',
+    name: 'name',
+    message: `What is the name of the ${choice}`,
+  }
+  return await prompt([q]).then((answer: PlainObject) => {
+    const [ans] = Object.values(answer) as Array<choices>
+    return ans
+  })
+}
