@@ -51,7 +51,7 @@ const pipeGeneration = async (choice: choices) => {
 
 const setup = async (path: string, type: choices) => {
   const fullPath = `${__dirname}/${path}`
-  log(`Will generate a ${type}`.blue)
+  log(`Will generate a ${type}`.blue.bold)
   const spinner = ora(`Checking if a the ${path} exists ..`.white)
   spinner.start()
   const exits = await stat(fullPath)
