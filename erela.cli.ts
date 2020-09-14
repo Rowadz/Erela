@@ -83,7 +83,7 @@ const generateController = async (distPath: string) => {
     .replace(/__NAME__/g, name)
     .replace(/__ROUTE_NAME__/g, name.toLowerCase())
   writeFileAsync(
-    join(__dirname, `${distPath}/${name}.controller.ts`),
+    join(__dirname, `${distPath}/${name.toLowerCase()}.controller.ts`),
     newContent
   )
 }
