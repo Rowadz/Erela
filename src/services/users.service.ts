@@ -6,7 +6,7 @@ import { Connection } from 'typeorm'
 // just cann the super constructor and pass a typeorm repo to it
 // then you have a basic curd
 @Service()
-export class __NAME__Service  {
+export class UsersService  {
   constructor(db: Connection) {
     // super(db.getRepository(UsersEntity))
   }

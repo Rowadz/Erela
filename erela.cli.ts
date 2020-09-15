@@ -19,6 +19,11 @@ enum choices {
   Service = 'Service',
 }
 
+enum ServiceTypes {
+  Base = 'Base',
+  Custom = 'Custom',
+}
+
 ;(async () => {
   log('Welcome to Erela Cli 👋👋'.cyan.bold)
   const q01: RawListQuestion = {
@@ -97,9 +102,20 @@ const generateControllerOrEntity = async (
 }
 
 const generateService = async (distPath: string): Promise<void> => {
-  const name = await askAboutName(choices.Service)
-  const buffer: Buffer = await readTempalte('service')
-  await createFile(distPath, name, buffer.toString(), choices.Service)
+  const wantCustom: boolean = await askAboutServiceChoice()
+  let name: string = 'Base'
+  if (wantCustom) {
+    name = await askAboutName(choices.Service)
+  }
+  const buffer: Buffer = await readTempalte(
+    `service${name === 'Base' ? '.base' : ''}`
+  )
+  await createFile(
+    distPath,
+    name,
+    buffer.toString().replace(/__NAME__/g, name),
+    choices.Service
+  )
 }
 
 const askAboutName = async (choice: choices): Promise<choices> => {
@@ -112,6 +128,22 @@ const askAboutName = async (choice: choices): Promise<choices> => {
     const [ans] = Object.values(answer) as Array<choices>
     return ans
   })
+}
+
+const askAboutServiceChoice = async (): Promise<boolean> => {
+  const q01: RawListQuestion = {
+    type: 'rawlist',
+    message: 'What service do you want?',
+    choices: Object.keys(ServiceTypes),
+    name: 'type',
+  }
+  return (
+    ServiceTypes.Custom ===
+    (await prompt([q01]).then((answer: PlainObject) => {
+      const [ans] = Object.values(answer) as Array<ServiceTypes>
+      return ans
+    }))
+  )
 }
 
 const createFile = async (
@@ -127,7 +159,10 @@ const createFile = async (
     ),
     content
   )
-  log(`plz look at ${distPath}/${name}.${choice.toLowerCase()}.ts`.yellow.bold)
+  log(
+    `plz look at ${distPath}/${name.toLowerCase()}.${choice.toLowerCase()}.ts`
+      .yellow.bold
+  )
 }
 
 const readTempalte = async (name: string): Promise<Buffer> =>

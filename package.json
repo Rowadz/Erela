@@ -42,6 +42,7 @@
     "reflect-metadata": "^0.1.13",
     "routing-controllers": "^0.9.0-alpha.6",
     "sqlite3": "^5.0.0",
+    "typedi": "^0.8.0",
     "typeorm": "^0.2.26"
   }
 }

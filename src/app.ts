@@ -1,10 +1,12 @@
 import 'reflect-metadata'
-import { createExpressServer } from 'routing-controllers'
+import { createExpressServer, useContainer } from 'routing-controllers'
+import { Container } from 'typedi'
 import { connectWithDB } from '@entities'
 import { config } from 'dotenv'
 import { Express } from 'express'
 import { sync } from 'glob'
 import { join, basename } from 'path'
+import { Connection } from 'typeorm'
 config()
 
 const { APP_PORT } = process.env
@@ -24,7 +26,11 @@ const init = async () => {
     // tslint:disable-next-line: no-console
     console.log(`🚀 App started on port ${APP_PORT} 🚀`.green.bold)
   })
-  await connectWithDB()
+  const con: Connection = await connectWithDB()
+  // TODO:: loop through your services and pass the db to it
+  // TODO:: then each service will available through the DO we have
+  // TODO:: in each controller
+  // Container.set(ServiceClass, new service(con))
 }
 
 init()
