@@ -38,11 +38,12 @@ const pipeGeneration = async (choice: choices): Promise<void> => {
     case choices.Controller:
       const controllers = 'src/controllers'
       await setup(controllers, choice)
-      generateController(controllers)
+      generateControllerOrEntity(controllers, choices.Controller)
       break
     case choices.Entity:
       const entities = 'src/entities'
-      setup(entities, choice)
+      await setup(entities, choice)
+      generateControllerOrEntity(entities, choices.Entity)
       break
     case choices.Service:
       const services = 'src/services'
@@ -74,15 +75,20 @@ const setup = async (path: string, type: choices): Promise<void> => {
   }
 }
 
-const generateController = async (distPath: string): Promise<void> => {
-  const name = await askAboutName(choices.Controller)
-  const buffer: Buffer = await readTempalte('controller')
+const generateControllerOrEntity = async (
+  distPath: string,
+  choice: choices
+): Promise<void> => {
+  const name = await askAboutName(choice)
+  const buffer: Buffer = await readTempalte(
+    choice === choices.Controller ? 'controller' : 'entity'
+  )
   const newContent = buffer
     .toString()
     .replace(/__NAME__/g, name)
-    .replace(/__ROUTE_NAME__/g, name.toLowerCase())
+    .replace(/__CHOICE_NAME__/g, name.toLowerCase())
 
-  await createFile(distPath, name, newContent, choices.Controller)
+  await createFile(distPath, name, newContent, choice)
 }
 
 const generateService = async (distPath: string): Promise<void> => {

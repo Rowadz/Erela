@@ -5,6 +5,7 @@
     "preserveConstEnums": true,
     "baseUrl": ".",
     "moduleResolution": "node",
+    "strictPropertyInitialization": false,
     "experimentalDecorators": true,
     "paths": {
       "types": ["src/types"],
