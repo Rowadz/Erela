@@ -8,11 +8,11 @@
     "strictPropertyInitialization": false,
     "experimentalDecorators": true,
     "paths": {
-      "types": ["src/types"],
-      "controllers": ["src/controllers"],
-      "entities": ["src/entities"],
-      "interfaces": ["src/interfaces"],
-      "services": ["src/services"]
+      "@types": ["src/types"],
+      "@controllers": ["src/controllers"],
+      "@entities": ["src/entities"],
+      "@interfaces": ["src/interfaces"],
+      "@services": ["src/services"]
     }
   }
 }

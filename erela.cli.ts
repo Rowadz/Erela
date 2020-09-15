@@ -1,6 +1,6 @@
 /* tslint:disable:no-console */
 import ora from 'ora'
-import { PlainObject } from 'types'
+import { PlainObject } from '@types'
 import { stat, mkdir, readFile, writeFile } from 'fs'
 import { promisify } from 'util'
 import 'colors'
@@ -86,7 +86,12 @@ const generateControllerOrEntity = async (
   const newContent = buffer
     .toString()
     .replace(/__NAME__/g, name)
-    .replace(/__CHOICE_NAME__/g, name.toLowerCase())
+    .replace(
+      /__CHOICE_NAME__/g,
+      choice === choices.Controller
+        ? `/${name.toLowerCase()}`
+        : name.toLowerCase()
+    )
 
   await createFile(distPath, name, newContent, choice)
 }
