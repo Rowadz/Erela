@@ -22,7 +22,7 @@ const init = async () => {
   const app: Express = createExpressServer({
     controllers: [controllersPath],
   })
-  app.listen(3030, () => {
+  app.listen(APP_PORT, () => {
     // tslint:disable-next-line: no-console
     console.log(`🚀 App started on port ${APP_PORT} 🚀`.green.bold)
   })
