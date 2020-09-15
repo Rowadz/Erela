@@ -33,7 +33,7 @@ enum choices {
   })
 })()
 
-const pipeGeneration = async (choice: choices) => {
+const pipeGeneration = async (choice: choices): Promise<void> => {
   switch (choice) {
     case choices.Controller:
       const controllers = 'src/controllers'
@@ -46,7 +46,8 @@ const pipeGeneration = async (choice: choices) => {
       break
     case choices.Service:
       const services = 'src/services'
-      setup(services, choice)
+      await setup(services, choice)
+      generateService(services)
       break
 
     default:
@@ -54,7 +55,7 @@ const pipeGeneration = async (choice: choices) => {
   }
 }
 
-const setup = async (path: string, type: choices) => {
+const setup = async (path: string, type: choices): Promise<void> => {
   const fullPath = join(`${__dirname}/${path}`)
   log(`Will generate a ${type}`.blue.bold)
   const spinner = ora(`Checking if a the ${path} exists ..`.white)
@@ -73,22 +74,24 @@ const setup = async (path: string, type: choices) => {
   }
 }
 
-const generateController = async (distPath: string) => {
+const generateController = async (distPath: string): Promise<void> => {
   const name = await askAboutName(choices.Controller)
-  const buffer: Buffer = await readFileAsync(
-    join(__dirname, `templates/controller.template.txt`)
-  )
+  const buffer: Buffer = await readTempalte('controller')
   const newContent = buffer
     .toString()
     .replace(/__NAME__/g, name)
     .replace(/__ROUTE_NAME__/g, name.toLowerCase())
-  writeFileAsync(
-    join(__dirname, `${distPath}/${name.toLowerCase()}.controller.ts`),
-    newContent
-  )
+
+  await createFile(distPath, name, newContent, choices.Controller)
 }
 
-const askAboutName = async (choice: choices) => {
+const generateService = async (distPath: string): Promise<void> => {
+  const name = await askAboutName(choices.Service)
+  const buffer: Buffer = await readTempalte('service')
+  await createFile(distPath, name, buffer.toString(), choices.Service)
+}
+
+const askAboutName = async (choice: choices): Promise<choices> => {
   const q: Question = {
     type: 'input',
     name: 'name',
@@ -99,3 +102,22 @@ const askAboutName = async (choice: choices) => {
     return ans
   })
 }
+
+const createFile = async (
+  distPath: string,
+  name: string,
+  content: string,
+  choice: choices
+): Promise<void> => {
+  await writeFileAsync(
+    join(
+      __dirname,
+      `${distPath}/${name.toLowerCase()}.${choice.toLowerCase()}.ts`
+    ),
+    content
+  )
+  log(`plz look at ${distPath}/${name}.${choice.toLowerCase()}.ts`.yellow.bold)
+}
+
+const readTempalte = async (name: string): Promise<Buffer> =>
+  await readFileAsync(join(__dirname, `templates/${name}.template.txt`))
