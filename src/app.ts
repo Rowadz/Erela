@@ -31,6 +31,7 @@ const init = async () => {
   // TODO:: then each service will available through the DO we have
   // TODO:: in each controller
   // Container.set(ServiceClass, new service(con))
+  useContainer(Container)
 }
 
 init()
