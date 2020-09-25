@@ -7,6 +7,8 @@
     "moduleResolution": "node",
     "strictPropertyInitialization": false,
     "emitDecoratorMetadata": true,
+    "outDir": "dist",
+    "rootDirs": ["src/**/*.ts"],
     "experimentalDecorators": true,
     "paths": {
       "@types": ["src/types"],

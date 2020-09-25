@@ -26,8 +26,14 @@ $ npm install
 
 - to run dev server  
 
-```
+```bash
 $ npm run dev
+```
+
+- to compile to js
+
+```bash
+$ npm run build
 ```
 
 
