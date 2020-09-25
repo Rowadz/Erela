@@ -18,20 +18,20 @@ export class __NAME__Contoller {
 
   // to get all data with pagination
   @Get()
-  getAll() {}
+  async getAll(): Promise<void> {}
 
   @Get('/:id')
-  getOne() {}
+  async getOne(): Promise<void> {}
 
   // TODO:: replace any!
   @Post()
-  async post(@Body() user: DeepPartial<any>) {}
+  async post(@Body() user: DeepPartial<any>): Promise<void> {}
 
   // TODO:: replace any!
   @Patch('/:id')
-  async patch(@Param('id') id: number, @Body() user: any) {}
+  async patch(@Param('id') id: number, @Body() user: any): Promise<void> {}
 
   // TODO:: replace any!
   @Delete('/:id')
-  remove(@Param('id') id: number) {}
+  async remove(@Param('id') id: number): Promise<void> {}
 }
