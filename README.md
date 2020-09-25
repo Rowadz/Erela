@@ -188,7 +188,7 @@ the configs for typeorm are in `.env.example` (which you should rename it)
 
 read more [here](https://github.com/typeorm/typeorm/blob/master/docs/using-ormconfig.md)
 
-video showing me creating 
+[video](https://www.youtube.com/watch?v=ZONommzfUk8) showing me creating 
 
 - CRUD enpoints
 - Users Service
