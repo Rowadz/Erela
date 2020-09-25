@@ -14,6 +14,23 @@ Why Erela?
 I like [Nestjs](https://nestjs.com/), [Feathersjs](https://feathersjs.com/) and [Sailsjs](https://sailsjs.com/) but sometimes they are too much for some of the things I do, so I created erela for myself.
 
 
+## How to use 
+
+- to install
+
+```bash
+$ git clone https://github.com/MohammedAl-Rowad/Erela.git
+$ cd Erela
+$ npm install
+```
+
+- to run dev server  
+
+```
+$ npm run dev
+```
+
+
 ## Folder Structure & Concepts
 
 ```
