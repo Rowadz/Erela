@@ -13,7 +13,7 @@ Why Erela?
 - To create **very simple and small** API's with orgnized code
 - To use the power of decorator and TypeScript from [routing-controllers](https://github.com/typestack/routing-controllers)
 - **Erela dose not force you to use any of the packages it comes with it nor do stuff in a specific way, you can still use `app.get('/route', fun)..` (express), or just ignore part of it like the entites or don't event use the dependency injection system it comes with, do what ever you want**
-- nothing is linked out of the box, this is your job which allow you to custmoize anthing.
+- nothing is linked out of the box (**I recommend that you use the index.ts to export/import stuff to leverage the power of the tsconfig paths aliases**), this is your job which allow you to custmoize anthing.
 
 I like [Nestjs](https://nestjs.com/), [Feathersjs](https://feathersjs.com/) and [Sailsjs](https://sailsjs.com/) but sometimes they are too much for some of the things I do, so I created erela for myself.
 
