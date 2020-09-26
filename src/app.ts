@@ -1,4 +1,5 @@
 import 'reflect-metadata'
+import 'module-alias/register'
 import { createExpressServer, useContainer } from 'routing-controllers'
 import { Container } from 'typedi'
 import { connectWithDB } from '@entities'
