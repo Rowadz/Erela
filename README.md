@@ -210,11 +210,13 @@ the configs for typeorm are in `.env.example` (which you should rename it)
 
 read more [here](https://github.com/typeorm/typeorm/blob/master/docs/using-ormconfig.md)
 
-[video](https://www.youtube.com/watch?v=ZONommzfUk8) showing me creating 
+[CRUD video](https://www.youtube.com/watch?v=ZONommzfUk8) showing me creating 
 
 - CRUD enpoints
 - Users Service
 - Users Entity
+
+[migration video](https://www.youtube.com/watch?v=NKZXkgA2LAc)
 
 and do some CRUD on them in under 5 min
 
