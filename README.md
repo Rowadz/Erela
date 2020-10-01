@@ -39,6 +39,18 @@ $ npm run dev
 ```bash
 $ npm run build
 ```
+note after you compile the js code will be inside a folder called `dist` in the root of your app, and you need to do this to make it work ( go to the package.json and change the path for the `_moduleAliases`)
+```json
+{
+  "_moduleAliases": {
+    "@types": "src/types",
+    "@controllers": "src/controllers",
+    "@entities": "src/entities",
+    "@interfaces": "src/interfaces",
+    "@services": "src/services"
+  },
+}
+```
 
 
 ## Folder Structure & Concepts
