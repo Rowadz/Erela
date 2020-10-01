@@ -10,10 +10,10 @@ import { join, basename } from 'path'
 import { Connection } from 'typeorm'
 config()
 
-const { APP_PORT } = process.env
+const { APP_PORT, EXT } = process.env
 
 const init = async () => {
-  const controllersPath = join(__dirname, 'controllers/*.controller.ts')
+  const controllersPath = join(__dirname, `controllers/*.controller.${EXT}`)
   const controllersNames = sync(controllersPath).map((path: string) => ({
     name: basename(path),
   }))

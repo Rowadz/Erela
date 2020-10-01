@@ -3,13 +3,13 @@ import { config } from 'dotenv'
 import 'reflect-metadata'
 import 'colors'
 config()
-const { DB_HOST, DB_USER, DB_PASS, TYPEORM_DATABASE } = process.env
+const { DB_HOST, DB_USER, DB_PASS, TYPEORM_DATABASE, EXT } = process.env
 
 export const connectWithDB = async (): Promise<Connection> => {
   const connection: Connection = await createConnection({
     type: 'sqlite',
     database: TYPEORM_DATABASE as string,
-    entities: [__dirname + '/**/*.entity.ts'],
+    entities: [__dirname + `/**/*.entity.${EXT}`],
   })
   await connection
     .synchronize(false) // ! pass true to drop everything and create them again [ DO NOT DO IT ON PROD ]
