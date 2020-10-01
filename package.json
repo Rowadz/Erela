@@ -13,11 +13,11 @@
     "typeorm:run": "npm run typeorm migration:run"
   },
   "_moduleAliases": {
-    "@types": "dist/src/types",
-    "@controllers": "dist/src/controllers",
-    "@entities": "dist/src/entities",
-    "@interfaces": "dist/src/interfaces",
-    "@services": "dist/src/services"
+    "@types": "src/types",
+    "@controllers": "src/controllers",
+    "@entities": "src/entities",
+    "@interfaces": "src/interfaces",
+    "@services": "src/services"
   },
   "keywords": [],
   "author": "",
