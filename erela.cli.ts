@@ -1,15 +1,16 @@
 /* tslint:disable:no-console */
 import ora from 'ora'
 import { PlainObject } from '@types'
-import { stat, mkdir, readFile, writeFile } from 'fs'
+import { stat, mkdir, readFile, writeFile, exists } from 'fs'
 import { promisify } from 'util'
 import 'colors'
 import { prompt, RawListQuestion, Question } from 'inquirer'
-import { join } from 'path'
+import { join, parse, basename } from 'path'
 const statAsync = promisify(stat)
 const mkdirAsync = promisify(mkdir)
 const readFileAsync = promisify(readFile)
 const writeFileAsync = promisify(writeFile)
+const existsAsync = promisify(exists)
 
 const { log } = console
 
@@ -90,7 +91,7 @@ const generateControllerOrEntity = async (
   )
   const newContent = buffer
     .toString()
-    .replace(/__NAME__/g, name)
+    .replace(/__NAME__/g, title(basename(name)))
     .replace(
       /__CHOICE_NAME__/g,
       choice === choices.Controller
@@ -113,7 +114,7 @@ const generateService = async (distPath: string): Promise<void> => {
   await createFile(
     distPath,
     name,
-    buffer.toString().replace(/__NAME__/g, name),
+    buffer.toString().replace(/__NAME__/g, title(basename(name))),
     choices.Service
   )
 }
@@ -148,22 +149,30 @@ const askAboutServiceChoice = async (): Promise<boolean> => {
 
 const createFile = async (
   distPath: string,
-  name: string,
+  nameThatMightContainPath: string,
   content: string,
   choice: choices
 ): Promise<void> => {
+  const { name, dir } = parse(nameThatMightContainPath)
+  let path = distPath
+  for (const folder of dir.split('/')) {
+    path = join(path, folder)
+    if (!(await existsAsync(path))) {
+      await mkdirAsync(path)
+    }
+  }
   await writeFileAsync(
-    join(
-      __dirname,
-      `${distPath}/${name.toLowerCase()}.${choice.toLowerCase()}.ts`
-    ),
+    join(__dirname, `${path}/${name.toLowerCase()}.${choice.toLowerCase()}.ts`),
     content
   )
   log(
-    `plz look at ${distPath}/${name.toLowerCase()}.${choice.toLowerCase()}.ts`
+    `plz look at ${path}/${name.toLowerCase()}.${choice.toLowerCase()}.ts`
       .yellow.bold
   )
 }
 
 const readTempalte = async (name: string): Promise<Buffer> =>
   await readFileAsync(join(__dirname, `templates/${name}.template.txt`))
+
+const title = (name: string) =>
+  `${name.charAt(0).toUpperCase()}${name.slice(1)}`
