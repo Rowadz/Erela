@@ -43,11 +43,11 @@ note after you compile the js code will be inside a folder called `dist` in the 
 ```json
 {
   "_moduleAliases": {
-    "@types": "src/types",
-    "@controllers": "src/controllers",
-    "@entities": "src/entities",
-    "@interfaces": "src/interfaces",
-    "@services": "src/services"
+    "@types": "dist/src/types",
+    "@controllers": "dist/src/controllers",
+    "@entities": "dist/src/entities",
+    "@interfaces": "dist/src/interfaces",
+    "@services": "dist/src/services"
   },
 }
 ```
