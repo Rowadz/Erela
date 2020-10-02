@@ -2,6 +2,7 @@ import {
   Param,
   Body,
   Get,
+  Param,
   Post,
   Delete,
   Patch,
@@ -21,15 +22,15 @@ export class __NAME__Contoller {
   async getAll(): Promise<void> {}
 
   @Get('/:id')
-  async getOne(): Promise<void> {}
+  async getOne(@Param('id') id: number): Promise<void> {}
 
   // TODO:: replace any!
   @Post()
-  async post(@Body() user: DeepPartial<any>): Promise<void> {}
+  async post(@Body() data: DeepPartial<any>): Promise<void> {}
 
   // TODO:: replace any!
   @Patch('/:id')
-  async patch(@Param('id') id: number, @Body() user: any): Promise<void> {}
+  async patch(@Param('id') id: number, @Body() data: DeepPartial<any>): Promise<void> {}
 
   // TODO:: replace any!
   @Delete('/:id')
