@@ -13,7 +13,7 @@ config()
 const { APP_PORT, EXT } = process.env
 
 const init = async () => {
-  const controllersPath = join(__dirname, `controllers/*.controller.${EXT}`)
+  const controllersPath = join(__dirname, `controllers/**/*.controller.${EXT}`)
   const controllersNames = sync(controllersPath).map((path: string) => ({
     name: basename(path),
   }))

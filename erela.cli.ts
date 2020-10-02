@@ -95,8 +95,8 @@ const generateControllerOrEntity = async (
     .replace(
       /__CHOICE_NAME__/g,
       choice === choices.Controller
-        ? `/${name.toLowerCase()}`
-        : name.toLowerCase()
+        ? `/${basename(name.toLowerCase())}`
+        : basename(name.toLowerCase())
     )
 
   await createFile(distPath, name, newContent, choice)
