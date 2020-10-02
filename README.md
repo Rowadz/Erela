@@ -51,6 +51,7 @@ note after you compile the js code will be inside a folder called `dist` in the 
   },
 }
 ```
+and change `EXT` from `ts` to `js` in the `.env` files inside the `dist` folder
 
 
 ## Folder Structure & Concepts
