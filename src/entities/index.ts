@@ -1,5 +1,6 @@
 import { createConnection, Connection } from 'typeorm'
 import { config } from 'dotenv'
+import { join } from 'path'
 import 'reflect-metadata'
 import 'colors'
 config()
@@ -9,7 +10,10 @@ export const connectWithDB = async (): Promise<Connection> => {
   const connection: Connection = await createConnection({
     type: 'sqlite',
     database: TYPEORM_DATABASE as string,
-    entities: [__dirname + `/**/*.entity.${EXT}`],
+    entities: [`/**/*.${EXT}`].map((path) => join(__dirname, path)),
+    subscribers: [`/**/*.${EXT}`].map((path) =>
+      join(__dirname, '../subscribers', path)
+    ),
   })
   await connection
     .synchronize(false) // ! pass true to drop everything and create them again [ DO NOT DO IT ON PROD ]
