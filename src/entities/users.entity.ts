@@ -13,8 +13,8 @@ enum Type {
   admin = 'admin',
 }
 
-@Entity({ name: '__CHOICE_NAME__' })
-export class __NAME__Entity {
+@Entity({ name: 'users' })
+export class UsersEntity {
   @PrimaryGeneratedColumn()
   @IsEmpty({ always: true, message: 'Do not send the ID!' })
   id: number

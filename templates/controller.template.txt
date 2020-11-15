@@ -6,6 +6,8 @@ import {
   Delete,
   Patch,
   JsonController,
+  Authorized,
+  CurrentUser,
 } from 'routing-controllers'
 import { DeepPartial } from 'utility-types'
 
