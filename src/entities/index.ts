@@ -23,3 +23,5 @@ export const connectWithDB = async (): Promise<Connection> => {
 
   return connection
 }
+
+export { UsersEntity } from './users.entity'
