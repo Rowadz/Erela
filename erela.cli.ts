@@ -1,7 +1,8 @@
 /* tslint:disable:no-console */
 import ora from 'ora'
 import { PlainObject } from '@types'
-import { stat, mkdir, readFile, writeFile, exists } from 'fs'
+import { stat, mkdir, readFile, writeFile, exists, copyFile } from 'fs'
+import { copy } from 'fs-extra'
 import { promisify } from 'util'
 import 'colors'
 import { prompt, RawListQuestion, Question } from 'inquirer'
@@ -11,10 +12,12 @@ const mkdirAsync = promisify(mkdir)
 const readFileAsync = promisify(readFile)
 const writeFileAsync = promisify(writeFile)
 const existsAsync = promisify(exists)
+const copyFileAsync = promisify(copyFile)
 
-const { log } = console
+const { log, error } = console
 
 enum choices {
+  App = 'App',
   Controller = 'Controller',
   Entity = 'Entity',
   Service = 'Service',
@@ -55,6 +58,9 @@ const pipeGeneration = async (choice: choices): Promise<void> => {
       const services = 'src/services'
       await setup(services, choice)
       generateService(services)
+      break
+    case choices.App:
+      genreateApp()
       break
 
     default:
@@ -176,3 +182,40 @@ const readTempalte = async (name: string): Promise<Buffer> =>
 
 const title = (name: string) =>
   `${name.charAt(0).toUpperCase()}${name.slice(1)}`
+
+const genreateApp = async () => {
+  try {
+    const q: Question = {
+      type: 'input',
+      name: 'Type path',
+      message: 'Enter App name',
+    }
+    const [nameWithPath] = await prompt([q]).then(
+      (answer: PlainObject) => Object.values(answer) as Array<choices>
+    )
+    await mkdirAsync(nameWithPath)
+    log(`Created a project ${nameWithPath}`.green.bold)
+    const toCp = [
+      'package.json',
+      'package-lock.json',
+      '.env.example',
+      '.gitignore',
+      'tsconfig.json',
+      'tslint.json',
+    ]
+    await copy(join(__dirname, 'src'), join(nameWithPath, 'src'))
+    log(`Created the src folder`.green.bold)
+    for (const file of toCp) {
+      await copyFileAsync(join(__dirname, file), join(nameWithPath, file))
+    }
+    log(`Done now cd ${nameWithPath} and run`.green.bold)
+    log('npm i'.bgWhite.black.bold)
+  } catch (e) {
+    error(
+      'Something went wrong while trying to generate the app'.red.bold,
+      'see the error messages',
+      'PRs are welcomed'
+    )
+    error(e)
+  }
+}
