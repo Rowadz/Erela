@@ -28,7 +28,7 @@ $ erela
 ```
 this will print the following list for you
 
-<img src="/imgs/erela-quick-start.png">
+<img src="https://raw.githubusercontent.com/MohammedAl-Rowad/Erela/master/docs/imgs/erela-quick-start.png">
 
 if you want you can explore the generator now, and tbh I think if you are really good in js you don't need these docs
 
@@ -100,7 +100,7 @@ Read more in [routing-controllers](https://github.com/typestack/routing-controll
 $ erela # make sure you are in an erela project
 ```
 
-<img src="/imgs/gen-controller.gif" width="100%">
+<img src="https://raw.githubusercontent.com/MohammedAl-Rowad/Erela/master/docs/imgs/gen-controller.gif" width="100%">
 
 
 ## Services
@@ -116,7 +116,7 @@ Erela can generates 2 types of services
 
 to generate a base service
 
-<img src="/imgs/gen-base-service.gif" width="100%">
+<img src="https://raw.githubusercontent.com/MohammedAl-Rowad/Erela/master/docs/imgs/gen-base-service.gif" width="100%">
 
 
 ```js
@@ -175,7 +175,7 @@ and as you can see the base service is just a generic class that accepts a type,
 
 To generate a custom service
 
-<img src="/imgs/gen-custom-service.gif" width="100%">
+<img src="https://raw.githubusercontent.com/MohammedAl-Rowad/Erela/master/docs/imgs/gen-custom-service.gif" width="100%">
 
 
 ```js
