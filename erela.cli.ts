@@ -201,7 +201,7 @@ const genreateApp = async () => {
     await mkdirAsync(nameWithPath)
     log(`Created a project ${nameWithPath}`.green.bold)
     const toCp = [
-      'package.json',
+      'normal-package.json',
       '.env.example',
       'tsconfig.json',
       'tslint.json',
@@ -210,7 +210,7 @@ const genreateApp = async () => {
     await copy(join(__dirname, 'src'), join(nameWithPath, 'src'))
     log(`Created the src folder`.green.bold)
     for (const file of toCp) {
-      await copyFileAsync(join(__dirname, file), join(nameWithPath, file))
+      await copyFileAsync(join(__dirname, file), join(nameWithPath, file === 'normal-package.json' ? 'package.json' : file))
     }
     log(`Done now cd ${nameWithPath} and run`.green.bold)
     log('npm i'.bgWhite.black.bold)
