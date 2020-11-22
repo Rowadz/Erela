@@ -30,9 +30,75 @@ this will print the following list for you
 
 <img src="https://raw.githubusercontent.com/MohammedAl-Rowad/Erela/master/docs/imgs/erela-quick-start.png">
 
-if you want you can explore the generator now, and tbh I think if you are really good in js you don't need these docs
+Select genrating an APP then type the path with the name for it, erela cli now will generate the following application
 
 
+<details>
+  <summary>Click to see the application folders/files</summary>
+  
+  
+```
+.
+├── README.md
+├── dist
+│   ├── erela.cli.js
+│   └── src
+│       ├── app.js
+│       ├── controllers
+│       │   └── index.js
+│       ├── entities
+│       │   ├── index.js
+│       │   └── users.entity.js
+│       ├── interfaces
+│       │   └── index.js
+│       ├── services
+│       │   └── index.js
+│       └── types
+│           ├── generic.types.js
+│           └── index.js
+├── erela.cli.js
+├── erela.cli.ts
+├── package.json
+├── src
+│   ├── app.ts
+│   ├── controllers
+│   │   └── index.ts
+│   ├── entities
+│   │   ├── index.ts
+│   │   ├── migrations
+│   │   └── users.entity.ts
+│   ├── interfaces
+│   │   └── index.ts
+│   ├── services
+│   │   └── index.ts
+│   ├── subscribers
+│   └── types
+│       ├── generic.types.ts
+│       └── index.ts
+├── tsconfig.json
+└── tslint.json
+```
+</details>
+
+feel free the explore the code or continue reading the docs
+
+
+# Running the application
+
+After you generated an app, you need to 
+
+- `npm install`
+- `npm run dev` 
+
+`npm run dev` will serve the application on the port defined by the variable `APP_PORT` from the `.env` file 
+
+
+> Erela comes with `.env.example` file that you should rename to `.env`, AND PLEASE ADD THIS FILE YOU YOUR `.gitignore`
+
+
+# Compiling the application
+
+Run `npm run build` and that will put the compiled JS code into a folder called `dist` ( and you can change that in `tsconfig.json`)
 
 # Main Components
 
