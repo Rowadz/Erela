@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /* tslint:disable:no-console */
 import ora from 'ora'
 import { PlainObject } from '@types'
@@ -7,6 +8,8 @@ import { promisify } from 'util'
 import 'colors'
 import { prompt, RawListQuestion, Question } from 'inquirer'
 import { join, parse, basename } from 'path'
+import { textSync } from 'figlet'
+
 const statAsync = promisify(stat)
 const mkdirAsync = promisify(mkdir)
 const readFileAsync = promisify(readFile)
@@ -14,7 +17,7 @@ const writeFileAsync = promisify(writeFile)
 const existsAsync = promisify(exists)
 const copyFileAsync = promisify(copyFile)
 
-const { log, error } = console
+const { log, error, clear } = console
 
 enum choices {
   App = 'App',
@@ -29,7 +32,8 @@ enum ServiceTypes {
 }
 
 ;(async () => {
-  log('Welcome to Erela Cli 👋👋'.cyan.bold)
+  clear()
+  log(textSync('Erela Cli', { horizontalLayout: 'full' }))
   const q01: RawListQuestion = {
     type: 'rawlist',
     message: 'What do you want to generate?',
@@ -45,17 +49,17 @@ enum ServiceTypes {
 const pipeGeneration = async (choice: choices): Promise<void> => {
   switch (choice) {
     case choices.Controller:
-      const controllers = 'src/controllers'
+      const controllers = './src/controllers'
       await setup(controllers, choice)
       generateControllerOrEntity(controllers, choices.Controller)
       break
     case choices.Entity:
-      const entities = 'src/entities'
+      const entities = './src/entities'
       await setup(entities, choice)
       generateControllerOrEntity(entities, choices.Entity)
       break
     case choices.Service:
-      const services = 'src/services'
+      const services = './src/services'
       await setup(services, choice)
       generateService(services)
       break
@@ -69,7 +73,7 @@ const pipeGeneration = async (choice: choices): Promise<void> => {
 }
 
 const setup = async (path: string, type: choices): Promise<void> => {
-  const fullPath = join(`${__dirname}/${path}`)
+  const fullPath = join('./', path)
   log(`Will generate a ${type}`.blue.bold)
   const spinner = ora(`Checking if a the ${path} exists ..`.white)
   spinner.start()
@@ -164,17 +168,18 @@ const createFile = async (
   for (const folder of dir.split('/')) {
     path = join(path, folder)
     if (!(await existsAsync(path))) {
-      await mkdirAsync(path)
+      await mkdirAsync(`./${path}`)
     }
   }
-  await writeFileAsync(
-    join(__dirname, `${path}/${name.toLowerCase()}.${choice.toLowerCase()}.ts`),
-    content
+  const { cwd } = process
+
+  const dist = join(
+    cwd(),
+    path,
+    `${name.toLowerCase()}.${choice.toLowerCase()}.ts`
   )
-  log(
-    `plz look at ${path}/${name.toLowerCase()}.${choice.toLowerCase()}.ts`
-      .yellow.bold
-  )
+  await writeFileAsync(join(dist), content)
+  log(`plz look at ${dist}`.yellow.bold)
 }
 
 const readTempalte = async (name: string): Promise<Buffer> =>
@@ -197,11 +202,10 @@ const genreateApp = async () => {
     log(`Created a project ${nameWithPath}`.green.bold)
     const toCp = [
       'package.json',
-      'package-lock.json',
       '.env.example',
-      '.gitignore',
       'tsconfig.json',
       'tslint.json',
+      'README.md',
     ]
     await copy(join(__dirname, 'src'), join(nameWithPath, 'src'))
     log(`Created the src folder`.green.bold)
