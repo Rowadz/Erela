@@ -251,7 +251,7 @@ erela comes with a file called `.env.example`, you should rename this to `.env` 
 DB_HOST=127.0.0.1
 DB_USER=user
 DB_PASS=secret
-
+CONNECT_WITH_DB=false
 
 APP_PORT=3030
 EXT=ts

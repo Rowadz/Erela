@@ -19,7 +19,7 @@ import { decode, verify } from 'jsonwebtoken'
 import { UsersEntity } from '@entities'
 config()
 
-const { APP_PORT, EXT, JWT_SECRET } = process.env
+const { APP_PORT, EXT, JWT_SECRET, CONNECT_WITH_DB } = process.env
 
 const init = async () => {
   const getJWT = ({ authorization }: IncomingHttpHeaders): string | null => {
@@ -78,7 +78,10 @@ const init = async () => {
     // tslint:disable-next-line: no-console
     console.log(`🚀 App started on port ${APP_PORT} 🚀`.green.bold)
   })
-  const con: Connection = await connectWithDB()
+
+  if (CONNECT_WITH_DB === 'true') {
+    const con: Connection = await connectWithDB()
+  }
   // TODO:: loop through your services and pass the db to it
   // TODO:: then each service will available through the DO we have
   // TODO:: in each controller
