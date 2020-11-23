@@ -10,10 +10,10 @@ Erela is a Nodejs - express - TypeScript starter with simple CLI generator and i
 
 ## Why? 
  
-- To create **very simple and small** API's with orgnized and opinionated code.
+- To create very simple and small APIs with organized and opinionated code.
 - To use the power of decorator and TypeScript from [routing-controllers](https://github.com/typestack/routing-controllers)
 - Erela does not force you to use any of the packages it comes with it, nor do stuff in a specific way, you can still use `app.get('/route', fun)..` (express), or just ignore part of it like the entities or don't even use the dependency injection system it comes with, do what ever you want.
-- Nothing is linked out of the box (**I recommend that you use the index.ts to export/import stuff to leverage the power of the tsconfig paths aliases**), this is your job which allow you to custmoize anthing, in the way you want to.
+- Nothing is linked out of the box (I recommend that you use the index.ts to export/import stuff to leverage the power of the tsconfig paths aliases), this is your job which allow you to customize anything, in the way you want to.
 
 I like [Nestjs](https://nestjs.com/), [Feathersjs](https://feathersjs.com/) and [Sailsjs](https://sailsjs.com/) but sometimes they are too much for some of the things I do, so I created erela for myself.
 
@@ -30,7 +30,7 @@ this will print the following list for you
 
 <img src="https://raw.githubusercontent.com/MohammedAl-Rowad/Erela/master/docs/imgs/erela-quick-start.png">
 
-Select genrating an APP then type the path with the name for it, erela cli now will generate the following application
+Select generating an APP then type the path with the name for it, erela cli now will generate the following application
 
 
 <details>
@@ -85,7 +85,7 @@ feel free the explore the code or continue reading the docs
 
 # Running the application
 
-After you generated an app, you need to 
+After you generate an app, you need to 
 
 - `npm install`
 - `npm run dev` 
@@ -102,8 +102,7 @@ Run `npm run build` and that will put the compiled JS code into a folder called 
 
 # Main Components
 
-The idea behind erela is to have a `controller` - `service` - `entity` for each part of you application, ofcourse you don't need 
-all this sometime, everything is up to you!
+The idea behind erela is to have a `controller` - `service` - `entity` for each part of your application, of course you don't need all this sometime, everything is up to you!
 
 the below sections will explain these 3 components and mention others
 
@@ -171,7 +170,7 @@ $ erela # make sure you are in an erela project
 
 ## Services
 
-A service is a class that can be added to the dependency injection framework that is provided via [typedi](https://github.com/typestack/typedi), and the main purpose of a service is to do the logic to handle the request, that might be calling methods from entites to contact the database, or write on the file system or contact another API and so on.
+A service is a class that can be added to the dependency injection framework that is provided via [typedi](https://github.com/typestack/typedi), and the main purpose of a service is to do the logic to handle the request, that might be calling methods from entities to contact the database, or write on the file system or contact another API and so on.
 
 Erela can generates 2 types of services
 
@@ -344,7 +343,7 @@ JWT_SECRET=secret
 
 ## Authentication
 
-Erela uses [routing-controllers](https://github.com/typestack/routing-controllers) and supports only  bearer authentication ([JWT](https://jwt.io/)) out of the box, you authenticate a request the only thing you need to do is the following
+Erela uses [routing-controllers](https://github.com/typestack/routing-controllers) and supports only  bearer authentication ([JWT](https://jwt.io/)) out of the box, to authenticate a request the only thing you need to do is the following:
 
 ```js
 import {
@@ -381,9 +380,6 @@ export class UsersContoller {
 
 
 the logic for the authentication comes from `authorizationChecker` & `currentUserChecker` functions in `src/app.ts`, which uses by default the users entity which comes with erela by default (feel free to change that).
-
-
-
 
 
 ## Extras
