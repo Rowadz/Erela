@@ -10,7 +10,7 @@ Erela is a Nodejs - express - TypeScript starter with simple cli generator.
 
 ## Documentation
 
-[DOCS](https://mohammedal-rowad.github.io/Erela/#/)
+[DOCS](https://rowadz.github.io/Erela/#/)
 
 
 ## install
